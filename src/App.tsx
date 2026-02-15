@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import { Header } from "./components/Header";
 import { Hero } from "./components/Hero";
 import { WhatDoIHelp } from "./components/WhatDoIHelp";
+import { Works } from "./components/Works";
 import { Experience } from "./components/Experience";
 import { Footer } from "./components/Footer";
 
@@ -16,6 +17,7 @@ const HomePage = () => (
       <Header />
       <Hero />
       <WhatDoIHelp />
+      <Works />
       <Experience />
       <Footer />
     </div>

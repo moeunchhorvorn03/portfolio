@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 export const Header = () => {
   const navItems = [
     { label: "SERVICES", href: "/", hash: "" },
-    { label: "WORKS", href: "/", hash: "" },
+    { label: "WORKS", href: "/", hash: "#works" },
     { label: "NOTES", href: "/", hash: "" },
     { label: "EXPERIENCE", href: "/", hash: "#experience" },
   ];
