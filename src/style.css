@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+:root {
+  --cream: #f5f2eb;
+  --hero-bg: #fdf8f0;
+  --hero-muted: #8b7873;
+  --hero-title: #4f403d;
+  --ochre: #e6c063;
+  --text-dark: #2d2d2d;
+  --accent: #e85d4c;
+  --teal: #00a89a;
+  --amber: #f0b429;
+  --red: #e85d4c;
+  --font-sans: "DM Sans", "Sansation", sans-serif;
+  --font-script: "Dancing Script", cursive;
+  --font-serif: "Lora", Georgia, serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  color: var(--text-dark);
+  margin: 0;
+  overflow-x: hidden;
+}
