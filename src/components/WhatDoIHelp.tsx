@@ -40,12 +40,14 @@ export const WhatDoIHelp = () => {
           {services.map((s) => (
             <motion.div
               key={s.title}
-              className="flex items-center gap-4 p-4 rounded-2xl bg-white/80 shadow-sm border border-(--cream) hover:shadow-md transition-shadow"
+              className="flex items-center gap-4 p-4 rounded-2xl shadow-sm border hover:shadow-md transition-shadow"
+              style={{ backgroundColor: 'var(--surface-muted)', borderColor: 'var(--border-subtle)' }}
               initial="offscreen"
               whileInView="onscreen"
               viewport={viewport}
               variants={variants}
-              transition={{ ...transition, delay: 0.3 }}
+              transition={transition}
+              whileHover={{ scale: 1.02 }}
             >
               <div
                 className="w-12 h-12 rounded-xl flex items-center justify-center text-xl shrink-0"

@@ -14,6 +14,26 @@
   --font-sans: "DM Sans", "Sansation", sans-serif;
   --font-script: "Dancing Script", cursive;
   --font-serif: "Lora", Georgia, serif;
+  /* Surface colors for cards/borders (light) */
+  --surface: #ffffff;
+  --surface-muted: rgba(255, 255, 255, 0.8);
+  --border-subtle: rgba(45, 45, 45, 0.1);
+}
+
+[data-theme="dark"] {
+  --cream: #1a1a1a;
+  --hero-bg: #1e1e1e;
+  --hero-muted: #a8a8a8;
+  --hero-title: #f0f0f0;
+  --ochre: #e8c86a;
+  --text-dark: #e5e5e5;
+  --accent: #ef6b5c;
+  --teal: #2dd4bf;
+  --amber: #f5c542;
+  --red: #ef6b5c;
+  --surface: #252525;
+  --surface-muted: rgba(37, 37, 37, 0.9);
+  --border-subtle: rgba(255, 255, 255, 0.08);
 }
 
 * {
@@ -22,6 +42,14 @@
 
 html {
   scroll-behavior: smooth;
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+[data-theme="dark"] .header-theme-btn {
+  color: var(--cream);
 }
 
 body {
