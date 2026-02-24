@@ -1,3 +1,6 @@
+import type { ValueAnimationTransition, ViewportOptions } from "motion";
+import { motion } from "motion/react";
+
 const experiences = [
   {
     company: "Royal University of Phnom Penh",
@@ -22,15 +25,23 @@ const experiences = [
   }
 ];
 
+const variants = {
+  offscreen: { opacity: 0, y: 100 },
+  onscreen: { opacity: 1, y: 0 },
+};
+
+const transition: ValueAnimationTransition<any> = { duration: 0.5, ease: "easeOut" };
+const viewport: ViewportOptions = { once: true, amount: "some" };
+
 export const Experience = () => {
   return (
-    <section id="experience">
-      <h2 className="text-2xl lg:text-3xl font-bold text-(--text-dark) mb-8">
+    <section id="experience" className="pt-24">
+      <motion.h2 className="text-2xl lg:text-3xl font-bold text-(--text-dark) mb-8" initial="offscreen" whileInView="onscreen" viewport={viewport} variants={variants} transition={transition}>
         Experience
-      </h2>
+      </motion.h2>
       <div className="space-y-6">
         {experiences.map((exp) => (
-          <div key={exp.company} className="flex gap-4">
+          <motion.div key={exp.company} className="flex gap-4" initial="offscreen" whileInView="onscreen" viewport={viewport} variants={variants} transition={transition}>
             <div
               className="w-3 h-3 rounded-full shrink-0 mt-2"
               style={{ backgroundColor: exp.color }}
@@ -44,7 +55,7 @@ export const Experience = () => {
               <h3 className="font-bold text-(--text-dark) text-lg mb-2">{exp.role}</h3>
               <p className="text-sm text-(--text-dark)/85 leading-relaxed">{exp.description}</p>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
     </section>

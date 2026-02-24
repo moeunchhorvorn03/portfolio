@@ -1,3 +1,6 @@
+import type { ValueAnimationTransition, ViewportOptions } from "motion";
+import { motion } from "motion/react";
+
 const projects = [
   {
     name: "KB Prasac Bank CIB",
@@ -37,31 +40,39 @@ const projects = [
   },
 ];
 
+const variants = {
+  offscreen: { opacity: 0, y: 100 },
+  onscreen: { opacity: 1, y: 0 },
+};
+
+const transition: ValueAnimationTransition<any> = { duration: 0.5, ease: "easeOut" };
+const viewport: ViewportOptions = { once: true, amount: "some" };
+
 export const Works = () => {
   return (
-    <section id="works" className="py-12 lg:py-16">
-      <h2 className="text-2xl lg:text-3xl font-bold text-(--text-dark) mb-8">
+    <section id="works" className="pt-24">
+      <motion.h2 className="text-2xl lg:text-3xl font-bold text-(--text-dark) mb-8" initial="offscreen" whileInView="onscreen" viewport={viewport} variants={variants} transition={transition}>
         Works
-      </h2>
+      </motion.h2>
       <div className="space-y-6">
         {projects.map((project) => (
-          <div key={project.name} className="flex gap-4">
-            <div
+          <motion.div key={project.name} className="flex gap-4" initial="offscreen" whileInView="onscreen" viewport={viewport} variants={variants} transition={transition}>
+            <motion.div
               className="w-3 h-3 rounded-full shrink-0 mt-2"
               style={{ backgroundColor: project.color }}
             />
-            <div>
+            <motion.div>
               <div className="flex flex-wrap items-baseline gap-2 text-sm text-(--text-dark)/80 mb-1">
                 <span>{project.type}</span>
               </div>
-              <h3 className="font-bold text-(--text-dark) text-lg mb-2">
+              <motion.h3 className="font-bold text-(--text-dark) text-lg mb-2">
                 {project.name}
-              </h3>
-              <p className="text-sm text-(--text-dark)/85 leading-relaxed">
+              </motion.h3>
+              <motion.p className="text-sm text-(--text-dark)/85 leading-relaxed">
                 {project.description}
-              </p>
-            </div>
-          </div>
+              </motion.p>
+            </motion.div>
+          </motion.div>
         ))}
       </div>
     </section>
