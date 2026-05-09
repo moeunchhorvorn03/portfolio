@@ -1,4 +1,4 @@
-import profile from '../assets/images/profile.jpeg';
+import profile from '../assets/images/IMG_5020.PNG';
 import { motion, useMotionValueEvent, useScroll } from "motion/react";
 import { useState } from "react";
 
