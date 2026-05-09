@@ -17,9 +17,9 @@ export const Header = () => {
   });
 
   const navItems = [
-    { label: "SERVICES", href: "/", hash: "", delay: 0.3, initial: { opacity: 0, y: -20 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.8, ease: "easeOut", delay: 0.3 } },
+    // { label: "SERVICES", href: "/", hash: "", delay: 0.3, initial: { opacity: 0, y: -20 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.8, ease: "easeOut", delay: 0.3 } },
     { label: "WORKS", href: "/", hash: "#works", delay: 0.4, initial: { opacity: 0, y: -20 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.8, ease: "easeOut", delay: 0.4 } },
-    { label: "NOTES", href: "/", hash: "", delay: 0.5, initial: { opacity: 0, y: -20 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.8, ease: "easeOut", delay: 0.5 } },
+    // { label: "NOTES", href: "/", hash: "", delay: 0.5, initial: { opacity: 0, y: -20 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.8, ease: "easeOut", delay: 0.5 } },
     { label: "EXPERIENCE", href: "/", hash: "#experience", delay: 0.6, initial: { opacity: 0, y: -20 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.8, ease: "easeOut", delay: 0.6 } },
   ];
   return (
