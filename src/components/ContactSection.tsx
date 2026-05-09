@@ -2,8 +2,8 @@ import { Link } from "react-router-dom";
 
 const navItems: { label: string; href: string }[] = [
   { label: "SERVICES", href: "/#services" },
-  { label: "WORKS", href: "/#works" },
-  { label: "NOTES", href: "/#" },
+  // { label: "WORKS", href: "/#works" },
+  // { label: "NOTES", href: "/#" },
   { label: "EXPERIENCE", href: "/experience" },
 ];
 
