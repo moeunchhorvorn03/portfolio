@@ -5,6 +5,7 @@ import { WhatDoIHelp } from "./components/WhatDoIHelp";
 import { Works } from "./components/Works";
 import { Experience } from "./components/Experience";
 import { Footer } from "./components/Footer";
+import { AIAssistant } from "./components/AIAssistant";
 import { useMotionValueEvent, useScroll } from "motion/react";
 import { useEffect } from "react";
 import ECDHKeyExchange from "./services/ECDHKeyExchangeService";
@@ -76,8 +77,11 @@ const HomePage = () => {
 
 export const App = () => {
   return (
-    <Routes>
-      <Route path="/" element={<HomePage />} />
-    </Routes>
+    <>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+      </Routes>
+      <AIAssistant />
+    </>
   );
 };
