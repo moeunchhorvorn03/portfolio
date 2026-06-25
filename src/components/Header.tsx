@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom";
-import { motion, useMotionValueEvent, useScroll, type ValueAnimationTransition } from "motion/react";
+import { AnimatePresence, motion, useMotionValueEvent, useScroll, type ValueAnimationTransition } from "motion/react";
 import { useState } from "react";
 import { useTheme } from "../context/ThemeContext";
 
 export const Header = () => {
   const { scrollY } = useScroll();
   const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const { isDark, toggleTheme } = useTheme();
 
   useMotionValueEvent(scrollY, "change", (latest) => {
@@ -24,7 +25,7 @@ export const Header = () => {
   ];
   return (
     <motion.header 
-      className="flex items-center justify-between sticky top-0 z-50 py-6 lg:py-6 px-[140px]"
+      className="flex items-center justify-between sticky top-0 z-50 py-4 sm:py-6 lg:py-6 px-5 sm:px-8 md:px-12 lg:px-[140px]"
       initial={{
         backgroundColor: "transparent",
         backdropFilter: "none",
@@ -86,7 +87,56 @@ export const Header = () => {
         <button type="button" className="w-9 h-9 rounded-full bg-(--text-dark) text-white flex items-center justify-center hover:bg-(--accent) transition-colors" aria-label="Call">
           <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
         </button>
+        <button
+          type="button"
+          onClick={() => setMenuOpen((open) => !open)}
+          className="md:hidden w-9 h-9 rounded-full bg-(--text-dark) text-white flex items-center justify-center hover:bg-(--accent) transition-colors"
+          aria-label={menuOpen ? "Close menu" : "Open menu"}
+          aria-expanded={menuOpen}
+        >
+          {menuOpen ? (
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+          ) : (
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" /></svg>
+          )}
+        </button>
       </motion.div>
+
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.nav
+            key="mobile-menu"
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+            className="md:hidden absolute top-full left-0 right-0 mx-5 sm:mx-8 rounded-2xl border shadow-lg flex flex-col p-2"
+            style={{
+              backgroundColor: "color-mix(in srgb, var(--hero-bg) 92%, transparent)",
+              backdropFilter: "blur(12px)",
+              borderColor: "var(--border-subtle)",
+            }}
+          >
+            {navItems.map((item) => (
+              <a
+                key={item.label}
+                href={item.hash}
+                onClick={() => setMenuOpen(false)}
+                className="px-4 py-3 rounded-xl text-sm font-medium text-(--text-dark) hover:text-(--accent) hover:bg-(--border-subtle) transition-colors"
+              >
+                {item.label}
+              </a>
+            ))}
+            <a
+              href="tel:+855963987174"
+              onClick={() => setMenuOpen(false)}
+              className="px-4 py-3 rounded-xl text-sm font-medium text-(--text-dark) hover:text-(--accent) hover:bg-(--border-subtle) transition-colors sm:hidden"
+            >
+              (+855) 96 398 7174
+            </a>
+          </motion.nav>
+        )}
+      </AnimatePresence>
     </motion.header>
   );
 };

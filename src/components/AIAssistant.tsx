@@ -281,7 +281,7 @@ export const AIAssistant = () => {
                       >
                         <Markdown remarkPlugins={[remarkGfm]}>{message.text}</Markdown>
                       </div>
-                      {message.suggestions && message.suggestions.length > 0 && (
+                      {message.suggestions && message.suggestions.length > 0 && messages.length === 1 && (
                         <div className="flex flex-wrap gap-2">
                           {message.suggestions.map((suggestion) => (
                             <button

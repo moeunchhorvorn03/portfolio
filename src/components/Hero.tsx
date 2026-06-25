@@ -17,7 +17,7 @@ export const Hero = () => {
 
   return (
     <motion.section
-      className="py-48 lg:py-60 sticky top-20"
+      className="py-24 sm:py-32 lg:py-60 sticky top-16 sm:top-20"
       style={{
         backgroundColor: 'var(--hero-bg)',
         filter: `blur(${blur}px)`,
@@ -27,7 +27,7 @@ export const Hero = () => {
       transition={{ ease: "easeOut" }}
     >
       <motion.div 
-        className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center max-w-6xl mx-auto px-4"
+        className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12 lg:gap-16 items-center max-w-6xl mx-auto px-0 sm:px-4"
         initial={{ opacity: 1 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1, ease: "easeOut" }}

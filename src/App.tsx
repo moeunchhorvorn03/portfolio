@@ -62,7 +62,7 @@ const HomePage = () => {
       style={{ backgroundColor: "var(--cream)" }}
     >
       <Header />
-      <div className="flex-1 min-w-0 flex flex-col lg:min-h-screen mx-[140px]">
+      <div className="flex-1 min-w-0 flex flex-col lg:min-h-screen px-5 sm:px-8 md:px-12 lg:px-[140px]">
         <Hero />
         <div className="z-0">
           <WhatDoIHelp />
