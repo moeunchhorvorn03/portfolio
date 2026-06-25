@@ -1,6 +1,8 @@
 import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useRef, useState, type FormEvent, type KeyboardEvent } from "react";
 import { askAssistant, getSuggestedQuestions } from "../services/geminiService";
+import Markdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 type Message = {
   id: string;
@@ -263,7 +265,7 @@ export const AIAssistant = () => {
                   >
                     <div className="max-w-[85%] space-y-2">
                       <div
-                        className={`px-4 py-3 rounded-2xl text-sm leading-relaxed ${
+                        className={`markdown-content px-4 py-3 rounded-2xl text-sm leading-relaxed ${
                           message.role === "user"
                             ? "rounded-br-md text-white"
                             : "rounded-bl-md text-(--text-dark)"
@@ -277,7 +279,7 @@ export const AIAssistant = () => {
                               : undefined,
                         }}
                       >
-                        {message.text}
+                        <Markdown remarkPlugins={[remarkGfm]}>{message.text}</Markdown>
                       </div>
                       {message.suggestions && message.suggestions.length > 0 && (
                         <div className="flex flex-wrap gap-2">
