@@ -1,7 +1,7 @@
 import { ApiError, GoogleGenAI, type Content } from "@google/genai";
-import about from "../data/about.md?raw";
-import projects from "../data/projects.md?raw";
-import skills from "../data/skills.md?raw";
+import about from "../markdown/about.md?raw";
+import projects from "../markdown/projects.md?raw";
+import skills from "../markdown/skills.md?raw";
 
 const RETRYABLE_STATUSES = new Set([429, 500, 503, 504]);
 
@@ -11,19 +11,19 @@ export const MODEL_OPTIONS = [
     { id: "gemini-2.0-flash", name: "Gemini 2.0 Flash" },
     { id: "gemini-2.0-flash-lite", name: "Gemini 2.0 Flash Lite" },
     { id: "gemini-2.5-flash", name: "Gemini 2.5 Flash" },
-] as const;
+];
 
 export const MODEL_FALLBACK_ORDER = [
     "gemini-2.0-flash",
     "gemini-2.0-flash-lite",
     "gemini-2.5-flash",
-] as const;
+];
 
-export function sleep(ms: number) {
+export const sleep = (ms: number) => {
     return new Promise((resolve) => setTimeout(resolve, ms));
-}
+};
 
-function parseApiPayload(message: string): { code?: number; status?: string; detail?: string } | null {
+const parseApiPayload = (message: string): { code?: number; status?: string; detail?: string } | null => {
     try {
         const parsed = JSON.parse(message) as {
             error?: { code?: number; message?: string; status?: string };
@@ -37,23 +37,23 @@ function parseApiPayload(message: string): { code?: number; status?: string; det
     } catch {
         return null;
     }
-}
+};
 
-export function getErrorStatus(err: unknown): number | null {
+export const getErrorStatus = (err: unknown): number | null => {
     if (err instanceof ApiError) return err.status;
     if (err instanceof Error) {
         const payload = parseApiPayload(err.message);
         return payload?.code ?? null;
     }
     return null;
-}
+};
 
-export function isRetryableError(err: unknown): boolean {
+export const isRetryableError = (err: unknown): boolean => {
     const status = getErrorStatus(err);
     return status !== null && RETRYABLE_STATUSES.has(status);
-}
+};
 
-export function formatGeminiError(err: unknown): string {
+export const formatGeminiError = (err: unknown): string => {
     if (err instanceof ApiError) {
         return friendlyMessage(err.status, err.message);
     }
@@ -67,9 +67,9 @@ export function formatGeminiError(err: unknown): string {
     }
 
     return "Something went wrong. Please try again.";
-}
+};
 
-function friendlyMessage(status: number, detail: string): string {
+const friendlyMessage = (status: number, detail: string): string => {
     switch (status) {
         case 429:
             return "Too many requests. Please wait a moment and try again.";
@@ -84,12 +84,12 @@ function friendlyMessage(status: number, detail: string): string {
         default:
             return detail || `Request failed (${status}).`;
     }
-}
+};
 
-export async function withRetries<T>(
+export const withRetries = async <T>(
     fn: () => Promise<T>,
     options: { attempts?: number; baseDelayMs?: number } = {}
-): Promise<T> {
+): Promise<T> => {
     const { attempts = 3, baseDelayMs = 1000 } = options;
     let lastError: unknown;
 
@@ -104,26 +104,14 @@ export async function withRetries<T>(
     }
 
     throw lastError;
-}
+};
 
-export function modelsToTry(selectedModel: string): string[] {
+export const modelsToTry = (selectedModel: string): string[] => {
     const ordered = [
         selectedModel,
         ...MODEL_FALLBACK_ORDER.filter((id) => id !== selectedModel),
     ];
     return [...new Set(ordered)];
-}
-
-export type ChatRole = "user" | "assistant";
-
-export type ChatMessage = {
-    role: ChatRole;
-    text: string;
-};
-
-export type AssistantReply = {
-    text: string;
-    suggestions?: string[];
 };
 
 const SUGGESTED_QUESTIONS = [
@@ -157,26 +145,26 @@ ${projects}
 ${EXPERIENCE_CONTEXT}
 `;
 
-function getApiKey(): string | undefined {
+const getApiKey = (): string | undefined => {
     const key = import.meta.env.VITE_GEMINI_API_KEY;
     return key?.trim() || undefined;
-}
+};
 
-function toGeminiHistory(messages: ChatMessage[]): Content[] {
+const toGeminiHistory = (messages: ChatMessage[]): Content[] => {
     return messages.map((message) => ({
         role: message.role === "user" ? "user" : "model",
         parts: [{ text: message.text }],
     }));
 }
 
-export function getSuggestedQuestions(): string[] {
+export const getSuggestedQuestions = (): string[] => {
     return [...SUGGESTED_QUESTIONS];
 }
 
-export async function askAssistant(
+export const askAssistant = async (
     question: string,
     history: ChatMessage[] = []
-): Promise<AssistantReply> {
+): Promise<AssistantReply> => {
     const trimmed = question.trim();
     if (!trimmed) {
         return {
@@ -231,3 +219,22 @@ export async function askAssistant(
         suggestions: getSuggestedQuestions().slice(0, 3),
     };
 }
+
+export type Message = {
+    id: string;
+    role: "user" | "assistant";
+    text: string;
+    suggestions?: string[];
+};
+
+export type ChatRole = "user" | "assistant";
+
+export type ChatMessage = {
+    role: ChatRole;
+    text: string;
+};
+
+export type AssistantReply = {
+    text: string;
+    suggestions?: string[];
+};
